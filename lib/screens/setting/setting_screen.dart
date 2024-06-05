@@ -1,15 +1,15 @@
 import 'package:app/constants/layout_constants.dart';
-import 'package:app/src/widgets/screen_header.dart';
+import 'package:app/widgets/screen_header.dart';
 import 'package:flutter/material.dart';
 
-class DiaryScreen extends StatefulWidget {
-  const DiaryScreen({super.key});
+class SettingScreen extends StatefulWidget {
+  const SettingScreen({super.key});
 
   @override
-  State<DiaryScreen> createState() => _DiaryScreenState();
+  State<SettingScreen> createState() => _SettingScreenState();
 }
 
-class _DiaryScreenState extends State<DiaryScreen> {
+class _SettingScreenState extends State<SettingScreen> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -18,7 +18,7 @@ class _DiaryScreenState extends State<DiaryScreen> {
         child: Column(
           children: [
             ScreenHeader(
-              title: 'Diary',
+              title: 'Setting',
               subTitle: '부제목, 사용안하면 제거가능',
             ),
             Container(

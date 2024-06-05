@@ -1,8 +1,8 @@
 import 'package:app/constants/layout_constants.dart';
-import 'package:app/src/screens/diary/diary_screen.dart';
-import 'package:app/src/screens/home/home_screen.dart';
-import 'package:app/src/screens/question/question_screen.dart';
-import 'package:app/src/screens/setting/setting_screen.dart';
+import 'package:app/screens/diary/diary_screen.dart';
+import 'package:app/screens/home/home_screen.dart';
+import 'package:app/screens/question/question_screen.dart';
+import 'package:app/screens/setting/setting_screen.dart';
 import 'package:easy_rich_text/easy_rich_text.dart';
 import 'package:flutter/material.dart';
 

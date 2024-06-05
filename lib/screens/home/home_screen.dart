@@ -1,5 +1,5 @@
 import 'package:app/constants/layout_constants.dart';
-import 'package:app/src/widgets/screen_header.dart';
+import 'package:app/widgets/screen_header.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {

@@ -1,15 +1,15 @@
 import 'package:app/constants/layout_constants.dart';
-import 'package:app/src/widgets/screen_header.dart';
+import 'package:app/widgets/screen_header.dart';
 import 'package:flutter/material.dart';
 
-class SettingScreen extends StatefulWidget {
-  const SettingScreen({super.key});
+class QuestionScreen extends StatefulWidget {
+  const QuestionScreen({super.key});
 
   @override
-  State<SettingScreen> createState() => _SettingScreenState();
+  State<QuestionScreen> createState() => _QuestionScreenState();
 }
 
-class _SettingScreenState extends State<SettingScreen> {
+class _QuestionScreenState extends State<QuestionScreen> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -18,7 +18,7 @@ class _SettingScreenState extends State<SettingScreen> {
         child: Column(
           children: [
             ScreenHeader(
-              title: 'Setting',
+              title: 'Q&A',
               subTitle: '부제목, 사용안하면 제거가능',
             ),
             Container(
