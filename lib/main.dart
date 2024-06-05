@@ -43,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
       'title': 'Home',
       'widget': HomeScreen(),
       'dest': NavigationDestination(
-        selectedIcon: Icon(Icons.home),
+        selectedIcon: Icon(Icons.home, color: Colors.white,),
         icon: Icon(Icons.home_outlined),
         label: 'Home',
       ),
@@ -64,27 +64,42 @@ class _MyHomePageState extends State<MyHomePage> {
       'title': 'Q&A',
       'widget': QuestionScreen(),
       'dest': NavigationDestination(
-        selectedIcon: Icon(Icons.question_answer),
+        selectedIcon: Icon(Icons.question_answer, color: Colors.white,),
         icon: Icon(Icons.question_answer_outlined),
         label: 'Q&A',
       ),
-      'actions': <Widget>[]
+      'actions': <Widget>[],
+      'fab': FloatingActionButton(
+        
+        onPressed: () {
+          
+        },
+        shape: CircleBorder(),
+        child: Icon(Icons.add),
+      )
     },
     {
       'title': 'Diary',
       'widget': DiaryScreen(),
       'dest': NavigationDestination(
-        selectedIcon: Icon(Icons.book),
+        selectedIcon: Icon(Icons.book, color: Colors.white,),
         icon: Icon(Icons.book_outlined),
         label: 'Diary',
       ),
-      'actions': <Widget>[]
+      'actions': <Widget>[],
+      'fab': FloatingActionButton(
+        onPressed: () {
+          
+        },
+        shape: CircleBorder(),
+        child: Icon(Icons.add),
+      )
     },
     {
       'title': 'Setting',
       'widget': SettingScreen(),
       'dest': NavigationDestination(
-        selectedIcon: Icon(Icons.settings),
+        selectedIcon: Icon(Icons.settings, color: Colors.white,),
         icon: Icon(Icons.settings_outlined),
         label: 'Setting',
       ),
@@ -96,15 +111,27 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      bottomNavigationBar: NavigationBar(
-        labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-        onDestinationSelected: (int index) {
-          setState(() {
-            currentPageIdx = index;
-          });
-        },
-        selectedIndex: currentPageIdx,
-        destinations: [ for (var el in pageData) el['dest'] ]
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          border: Border(
+            top: BorderSide(
+              color: Colors.black.withOpacity(0.1),
+              width: 1
+            )
+          )
+        ),
+        child: NavigationBar(
+          indicatorColor: Theme.of(context).primaryColor,
+          backgroundColor: Colors.white,
+          labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+          onDestinationSelected: (int index) {
+            setState(() {
+              currentPageIdx = index;
+            });
+          },
+          selectedIndex: currentPageIdx,
+          destinations: [ for (var el in pageData) el['dest'] ]
+        ),
       ),
       appBar: AppBar(
         foregroundColor: Colors.black,
@@ -138,6 +165,7 @@ class _MyHomePageState extends State<MyHomePage> {
         DiaryScreen(),
         SettingScreen()
       ][currentPageIdx],
+      floatingActionButton: pageData[currentPageIdx]['fab'],
     );
   }
 }
