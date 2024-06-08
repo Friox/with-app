@@ -36,6 +36,9 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
   easy_rich_text: ^2.1.0
+  font_awesome_flutter: ^10.7.0
+  intl: ^0.19.0
+  vibration: ^1.9.0
 
 dev_dependencies:
   flutter_test:
@@ -91,6 +94,17 @@ flutter:
     - family: Pretendard
       fonts:
         - asset: assets/fonts/PretendardVariable.ttf
+    - family: Shiningstar
+      fonts:
+        - asset: assets/fonts/Cafe24Shiningstar.otf
+    - family: Kyobo2021
+      fonts:
+        - asset: assets/fonts/Kyobo2021.otf
+    - family: Jkid
+      fonts:
+        - asset: assets/fonts/Jkid-Light.otf
+        - asset: assets/fonts/Jkid-Medium.otf
+        - asset: assets/fonts/Jkid-Bold.otf
 
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

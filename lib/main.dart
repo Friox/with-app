@@ -5,10 +5,15 @@ import 'package:app/screens/question/question_screen.dart';
 import 'package:app/screens/setting/setting_screen.dart';
 import 'package:easy_rich_text/easy_rich_text.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting();
   runApp(const MyApp());
 }
+
+enum Page { home, qan, diary, setting }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -36,80 +41,57 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int currentPageIdx = 0;
+  final scaffoldState = GlobalKey<ScaffoldState>();
+  Page currentPageIdx = Page.home;
 
-  List<Map> pageData = [
-    {
-      'title': 'Home',
-      'widget': HomeScreen(),
-      'dest': NavigationDestination(
+  List<Widget>? getActions(Page idx) {
+    Map<Page, List<Widget>> data = {};
+    return data[idx];
+  }
+  
+  FloatingActionButton? getFAB(Page idx) {
+    Map<Page, FloatingActionButton> data = {
+      Page.qan: FloatingActionButton(
+        onPressed: () {
+
+        },
+        shape: CircleBorder(),
+        child: Icon(Icons.add)
+      )
+    };
+    return data[idx];
+  }
+
+  List<Widget> getNavDest() {
+    Map<Page, NavigationDestination> data = {
+      Page.home: NavigationDestination(
         selectedIcon: Icon(Icons.home, color: Colors.white,),
         icon: Icon(Icons.home_outlined),
         label: 'Home',
       ),
-      'actions': <Widget>[
-        Padding(
-          // 내부 8, 외부 4.
-          padding: const EdgeInsets.only(right: 20),
-          child: IconButton(
-            onPressed: () {
-          
-            },
-            icon: Icon(Icons.account_circle_rounded)
-          ),
-        ),
-      ]
-    },
-    {
-      'title': 'Q&A',
-      'widget': QuestionScreen(),
-      'dest': NavigationDestination(
+      Page.qan: NavigationDestination(
         selectedIcon: Icon(Icons.question_answer, color: Colors.white,),
         icon: Icon(Icons.question_answer_outlined),
         label: 'Q&A',
       ),
-      'actions': <Widget>[],
-      'fab': FloatingActionButton(
-        
-        onPressed: () {
-          
-        },
-        shape: CircleBorder(),
-        child: Icon(Icons.add),
-      )
-    },
-    {
-      'title': 'Diary',
-      'widget': DiaryScreen(),
-      'dest': NavigationDestination(
+      Page.diary: NavigationDestination(
         selectedIcon: Icon(Icons.book, color: Colors.white,),
         icon: Icon(Icons.book_outlined),
         label: 'Diary',
       ),
-      'actions': <Widget>[],
-      'fab': FloatingActionButton(
-        onPressed: () {
-          
-        },
-        shape: CircleBorder(),
-        child: Icon(Icons.add),
-      )
-    },
-    {
-      'title': 'Setting',
-      'widget': SettingScreen(),
-      'dest': NavigationDestination(
+      Page.setting: NavigationDestination(
         selectedIcon: Icon(Icons.settings, color: Colors.white,),
         icon: Icon(Icons.settings_outlined),
         label: 'Setting',
       ),
-      'actions': <Widget>[]
-    }
-  ];
+    };
+    return [ for (Page i in Page.values) data[i]! ];
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldState,
       backgroundColor: Colors.white,
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
@@ -121,21 +103,22 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ),
         child: NavigationBar(
+          height: 70,
           indicatorColor: Theme.of(context).primaryColor,
           backgroundColor: Colors.white,
-          labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+          labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
           onDestinationSelected: (int index) {
             setState(() {
-              currentPageIdx = index;
+              currentPageIdx = Page.values[index];
             });
           },
-          selectedIndex: currentPageIdx,
-          destinations: [ for (var el in pageData) el['dest'] ]
+          selectedIndex: currentPageIdx.index,
+          destinations: getNavDest()
         ),
       ),
       appBar: AppBar(
         foregroundColor: Colors.black,
-        actions: pageData[currentPageIdx]['actions'],
+        actions: getActions(currentPageIdx),
         titleSpacing: 32,
         shape: Border(
           bottom: BorderSide(
@@ -164,8 +147,8 @@ class _MyHomePageState extends State<MyHomePage> {
         QuestionScreen(),
         DiaryScreen(),
         SettingScreen()
-      ][currentPageIdx],
-      floatingActionButton: pageData[currentPageIdx]['fab'],
+      ][currentPageIdx.index],
+      floatingActionButton: getFAB(currentPageIdx),
     );
   }
 }

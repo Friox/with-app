@@ -2,12 +2,18 @@ import 'package:app/constants/layout_constants.dart';
 import 'package:flutter/material.dart';
 
 class ScreenHeader extends StatefulWidget {
-  const ScreenHeader({super.key, required this.title, this.subTitle, this.onClick, this.icon});
+  const ScreenHeader({
+    super.key,
+    required this.title,
+    this.subTitle,
+    this.iconButton,
+    this.filledButton
+  });
 
   final String title;
   final String? subTitle;
-  final VoidCallback? onClick;
-  final Icon? icon;
+  final IconButton? iconButton;
+  final FilledButton? filledButton;
 
   @override
   State<ScreenHeader> createState() => _ScreenHeaderState();
@@ -18,10 +24,10 @@ class _ScreenHeaderState extends State<ScreenHeader> {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.transparent,
-      padding: const EdgeInsets.only(
+      padding: EdgeInsets.only(
         left: LayoutConstants.containerPadding,
         top: LayoutConstants.headerPaddingVertical,
-        right: LayoutConstants.headerPaddingRight,
+        right: widget.iconButton != null ? LayoutConstants.headerPaddingRight : LayoutConstants.containerPadding,
         bottom: LayoutConstants.headerPaddingVertical
       ),
       child: Row(
@@ -48,13 +54,8 @@ class _ScreenHeaderState extends State<ScreenHeader> {
               ],
             ),
           ),
-          if (widget.onClick != null && widget.icon != null) Padding(
-            padding: const EdgeInsets.only(right: 0),
-            child: IconButton(
-              onPressed: widget.onClick,
-              icon: widget.icon!,
-            ),
-          )
+          if (widget.iconButton != null) widget.iconButton!
+          else if (widget.filledButton != null) widget.filledButton!
         ],
       ),
     );
