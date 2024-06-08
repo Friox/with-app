@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:vibration/vibration.dart';
 
 enum Sentiment {
   unknown(icon: FontAwesomeIcons.circleQuestion),
@@ -40,7 +39,7 @@ class _DiaryListItemState extends State<DiaryListItem> {
 
   @override
   Widget build(BuildContext context) {
-    return (true) ? Padding(
+    return Padding(
       padding: const EdgeInsets.only(
         left: LayoutConstants.headerPaddingVertical,
         top: LayoutConstants.headerPaddingVertical,
@@ -115,6 +114,6 @@ class _DiaryListItemState extends State<DiaryListItem> {
           )
         ),
       ),
-    ) : Text('asdf');
+    );
   }
 }
