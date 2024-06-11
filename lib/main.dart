@@ -1,9 +1,8 @@
-import 'package:app/constants/layout_constants.dart';
 import 'package:app/screens/diary/diary_screen.dart';
 import 'package:app/screens/home/home_screen.dart';
 import 'package:app/screens/question/question_screen.dart';
 import 'package:app/screens/setting/setting_screen.dart';
-import 'package:easy_rich_text/easy_rich_text.dart';
+import 'package:app/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
@@ -44,9 +43,10 @@ class _MyHomePageState extends State<MyHomePage> {
   final scaffoldState = GlobalKey<ScaffoldState>();
   Page currentPageIdx = Page.home;
 
-  List<Widget>? getActions(Page idx) {
+  List<Widget> getActions(Page idx) {
     Map<Page, List<Widget>> data = {};
-    return data[idx];
+    if (data[idx] == null) return [];
+    return data[idx]!;
   }
   
   FloatingActionButton? getFAB(Page idx) {
@@ -116,32 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
           destinations: getNavDest()
         ),
       ),
-      appBar: AppBar(
-        foregroundColor: Colors.black,
-        actions: getActions(currentPageIdx),
-        titleSpacing: 32,
-        shape: Border(
-          bottom: BorderSide(
-            color: Colors.black.withOpacity(0.1),
-            width: 1
-          )
-        ),
-        centerTitle: false,
-        backgroundColor: Colors.white,
-        title: EasyRichText(
-          "together: With",
-          defaultStyle: TextStyle(fontSize: 20),
-          patternList: [
-            EasyRichTextPattern(
-              targetString: "With",
-              style: TextStyle(
-                color: Color(0xFFF1C40F),
-                fontVariations: LayoutConstants.fontWeightBlack
-              )
-            )
-          ],
-        ),
-      ),
+      appBar: CustomAppBar(actions: getActions(currentPageIdx)),
       body: [
         HomeScreen(),
         QuestionScreen(),
