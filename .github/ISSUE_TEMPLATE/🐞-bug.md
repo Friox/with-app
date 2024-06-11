@@ -3,7 +3,7 @@ name: "\U0001F41E BUG"
 about: 버그를 제보할 때 사용해주세요.
 title: "[BUG] "
 labels: bug
-assignees: ''
+assignees: Friox
 
 ---
 
