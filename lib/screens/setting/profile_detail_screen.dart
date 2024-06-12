@@ -1,6 +1,7 @@
 import 'package:app/constants/layout_constants.dart';
 import 'package:app/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ProfileDetailScreen extends StatefulWidget {
   const ProfileDetailScreen({super.key});
@@ -256,6 +257,7 @@ class _ProfileDetailScreenState extends State<ProfileDetailScreen> {
                                     side: BorderSide(color: Colors.red)
                                   ),
                                   onPressed: () {
+                                    HapticFeedback.mediumImpact();
                                     showModalBottomSheet(
                                       backgroundColor: Colors.white,
                                       barrierLabel: "asdf",
