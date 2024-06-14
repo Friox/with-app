@@ -1,4 +1,5 @@
 import 'package:app/constants/layout_constants.dart';
+import 'package:app/screens/question/question_reply.dart';
 import 'package:app/widgets/container_card.dart';
 import 'package:app/widgets/screen_header.dart';
 import 'package:flutter/material.dart';
@@ -167,110 +168,131 @@ class _QuestionScreenState extends State<QuestionScreen> {
                       child: Column(
                         //shrinkWrap: true,
                         children: [
-                          Row(
-                            children: [
-                              Icon(Icons.radio_button_unchecked),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    '첫 번째 질문',
-                                    style: TextStyle(
-                                        color: Colors.black, fontSize: 15),
-                                  ),
-                                  Text(
-                                    '질문한 패밀리 이름',
-                                    style: TextStyle(
-                                      color: Color(0xFF666666),
-                                      fontSize: 11,
+                          InkWell(
+                            child: Row(
+                              children: [
+                                Icon(Icons.radio_button_unchecked),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '첫 번째 질문',
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 15),
                                     ),
-                                  )
-                                ],
-                              ),
-                              // TextButton(
-                              //   onPressed: () {},
-                              //   child: Text(
-                              //     '빠른 답변',
-                              //     style: TextStyle(
-                              //         color: Color(0xFF666666), fontSize: 11),
-                              //   ),
-                              // ),
-                            ],
+                                    Text(
+                                      '질문한 패밀리 이름',
+                                      style: TextStyle(
+                                        color: Color(0xFF666666),
+                                        fontSize: 11,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                // TextButton(
+                                //   onPressed: () {},
+                                //   child: Text(
+                                //     '빠른 답변',
+                                //     style: TextStyle(
+                                //         color: Color(0xFF666666), fontSize: 11),
+                                //   ),
+                                // ),
+                              ],
+                            ),
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const QuestionReply())),
                           ),
                           SizedBox(
                             height: 15,
                           ),
-                          Row(
-                            children: [
-                              Icon(Icons.radio_button_unchecked),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    '두 번째 질문',
-                                    style: TextStyle(
-                                        color: Colors.black, fontSize: 15),
-                                  ),
-                                  Text(
-                                    '질문한 패밀리 이름',
-                                    style: TextStyle(
-                                      color: Color(0xFF666666),
-                                      fontSize: 11,
+                          InkWell(
+                            child: Row(
+                              children: [
+                                Icon(Icons.radio_button_unchecked),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '두 번째 질문',
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 15),
                                     ),
-                                  )
-                                ],
-                              ),
-                              // TextButton(
-                              //   onPressed: () {},
-                              //   child: Text(
-                              //     '빠른 답변',
-                              //     style: TextStyle(
-                              //         color: Color(0xFF666666), fontSize: 11),
-                              //   ),
-                              // ),
-                            ],
+                                    Text(
+                                      '질문한 패밀리 이름',
+                                      style: TextStyle(
+                                        color: Color(0xFF666666),
+                                        fontSize: 11,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                // TextButton(
+                                //   onPressed: () {},
+                                //   child: Text(
+                                //     '빠른 답변',
+                                //     style: TextStyle(
+                                //         color: Color(0xFF666666), fontSize: 11),
+                                //   ),
+                                // ),
+                              ],
+                            ),
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const QuestionReply())),
                           ),
                           SizedBox(
                             height: 15,
                           ),
-                          Row(
-                            children: [
-                              Icon(Icons.radio_button_unchecked),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    '세 번째 질문',
-                                    style: TextStyle(
-                                        color: Colors.black, fontSize: 15),
-                                  ),
-                                  Text(
-                                    '질문한 패밀리 이름',
-                                    style: TextStyle(
-                                      color: Color(0xFF666666),
-                                      fontSize: 11,
+                          InkWell(
+                            child: Row(
+                              children: [
+                                Icon(Icons.radio_button_unchecked),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '세 번째 질문',
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 15),
                                     ),
-                                  )
-                                ],
-                              ),
-                              // TextButton(
-                              //   onPressed: () {},
-                              //   child: Text(
-                              //     '빠른 답변',
-                              //     style: TextStyle(
-                              //         color: Color(0xFF666666), fontSize: 11),
-                              //   ),
-                              // ),
-                            ],
+                                    Text(
+                                      '질문한 패밀리 이름',
+                                      style: TextStyle(
+                                        color: Color(0xFF666666),
+                                        fontSize: 11,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                // TextButton(
+                                //   onPressed: () {},
+                                //   child: Text(
+                                //     '빠른 답변',
+                                //     style: TextStyle(
+                                //         color: Color(0xFF666666), fontSize: 11),
+                                //   ),
+                                // ),
+                              ],
+                            ),
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const QuestionReply())),
                           ),
                           SizedBox(
                             height: 15,
