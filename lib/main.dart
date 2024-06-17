@@ -4,12 +4,19 @@ import 'package:app/screens/question/question_screen.dart';
 import 'package:app/screens/setting/setting_screen.dart';
 import 'package:app/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:app/providers/notifiers/auth_notifier.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDateFormatting();
-  runApp(const MyApp());
+  runApp(
+    ProviderScope(
+      child: const MyApp(),
+    )
+  );
 }
 
 enum Page { home, qan, diary, setting }
@@ -20,6 +27,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'together: With',
       theme: ThemeData(
         primaryColor: Color(0xFFF1C40F),
@@ -28,18 +36,27 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Pretendard'
       ),
       home: const MyHomePage(),
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('ko', 'KR')
+      ],
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends ConsumerStatefulWidget {
   const MyHomePage({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  ConsumerState<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends ConsumerState<MyHomePage> {
+  
   final scaffoldState = GlobalKey<ScaffoldState>();
   Page currentPageIdx = Page.home;
 
@@ -47,19 +64,6 @@ class _MyHomePageState extends State<MyHomePage> {
     Map<Page, List<Widget>> data = {};
     if (data[idx] == null) return [];
     return data[idx]!;
-  }
-  
-  FloatingActionButton? getFAB(Page idx) {
-    Map<Page, FloatingActionButton> data = {
-      Page.qan: FloatingActionButton(
-        onPressed: () {
-
-        },
-        shape: CircleBorder(),
-        child: Icon(Icons.add)
-      )
-    };
-    return data[idx];
   }
 
   List<Widget> getNavDest() {
@@ -88,8 +92,25 @@ class _MyHomePageState extends State<MyHomePage> {
     return [ for (Page i in Page.values) data[i]! ];
   }
 
+  final pageController = PageController();
+
+  final List<Widget> _children = [
+    HomeScreen(),
+    QuestionScreen(),
+    DiaryScreen(),
+    SettingScreen()
+  ];
+
+  void onPageChanged(int index) {
+    setState(() {
+      currentPageIdx = Page.values[index];
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
+    final authState = ref.watch(authNotifierProvider);
     return Scaffold(
       key: scaffoldState,
       backgroundColor: Colors.white,
@@ -111,19 +132,19 @@ class _MyHomePageState extends State<MyHomePage> {
             setState(() {
               currentPageIdx = Page.values[index];
             });
+            pageController.jumpToPage(index);
           },
           selectedIndex: currentPageIdx.index,
           destinations: getNavDest()
         ),
       ),
       appBar: CustomAppBar(actions: getActions(currentPageIdx)),
-      body: [
-        HomeScreen(),
-        QuestionScreen(),
-        DiaryScreen(),
-        SettingScreen()
-      ][currentPageIdx.index],
-      floatingActionButton: getFAB(currentPageIdx),
+      body: PageView(
+        controller: pageController,
+        onPageChanged: onPageChanged,
+        children: _children,
+        physics: NeverScrollableScrollPhysics(),
+      ),
     );
   }
 }

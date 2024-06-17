@@ -1,19 +1,22 @@
 import 'package:app/constants/layout_constants.dart';
+import 'package:app/providers/notifiers/auth_notifier.dart';
+import 'package:app/screens/setting/login_screen.dart';
 import 'package:app/screens/setting/profile_detail_screen.dart';
 import 'package:app/screens/setting/widgets/profile_card.dart';
 import 'package:app/widgets/screen_header.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SettingScreen extends StatefulWidget {
+class SettingScreen extends ConsumerStatefulWidget {
   const SettingScreen({super.key});
 
   @override
-  State<SettingScreen> createState() => _SettingScreenState();
+  ConsumerState<SettingScreen> createState() => _SettingScreenState();
 }
 
 enum Setting4 { item1, item2 }
 
-class _SettingScreenState extends State<SettingScreen> {
+class _SettingScreenState extends ConsumerState<SettingScreen> {
 
   bool setting1 = false;
   bool setting2 = false;
@@ -22,6 +25,7 @@ class _SettingScreenState extends State<SettingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final authState = ref.watch(authNotifierProvider);
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.only(bottom: LayoutConstants.containerPadding),
@@ -29,11 +33,12 @@ class _SettingScreenState extends State<SettingScreen> {
           children: [
             ScreenHeader(
               title: 'Setting',
-              subTitle: '어플리케이션 설정',
+              subTitle: '서비스 및 프로필 설정',
             ),
             Container(
               padding: EdgeInsets.symmetric(horizontal: LayoutConstants.containerPadding),
               child: Card(
+                margin: EdgeInsets.zero,
                 color: Colors.black.withOpacity(0.05),
                 elevation: 0,
                 shape: RoundedRectangleBorder(
@@ -44,7 +49,15 @@ class _SettingScreenState extends State<SettingScreen> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ProfileDetailScreen(),)
+                      MaterialPageRoute(builder: (context) {
+                        if (authState.isValid) {
+                          // 로그인 정보가 있을때 프로필 디테일
+                          return ProfileDetailScreen();
+                        } else {
+                          // 없을때 로그인 화면
+                          return LoginScreen();
+                        }
+                      },)
                     );
                   },
                   child: Container(
@@ -55,10 +68,11 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 16,),
+            SizedBox(height: 24,),
             Container(
               padding: EdgeInsets.symmetric(horizontal: LayoutConstants.containerPadding),
               child: Card(
+                margin: EdgeInsets.zero,
                 color: Colors.black.withOpacity(0.05),
                 elevation: 0,
                 shape: RoundedRectangleBorder(
@@ -73,7 +87,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('Section 1', style: TextStyle(
+                          Text('어플리케이션', style: TextStyle(
                             fontVariations: LayoutConstants.fontWeightBold,
                             color: Colors.black.withOpacity(0.4)
                           )),
@@ -95,11 +109,11 @@ class _SettingScreenState extends State<SettingScreen> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('Setting Title', style: TextStyle(
+                                Text('어플리케이션 알림 활성화', style: TextStyle(
                                   fontSize: 16,
                                   fontVariations: LayoutConstants.fontWeightSemiBold
                                 ),),
-                                Text('Switch')
+                                Text('알림을 활성화합니다')
                               ],
                             ),
                             Switch(
@@ -128,11 +142,11 @@ class _SettingScreenState extends State<SettingScreen> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('Setting Title', style: TextStyle(
+                                Text('심야시간 알림 허용', style: TextStyle(
                                   fontSize: 16,
                                   fontVariations: LayoutConstants.fontWeightSemiBold
                                 ),),
-                                Text('Checkbox')
+                                Text('00:00 ~ 07:00 알림을 허용합니다')
                               ],
                             ),
                             Checkbox(
@@ -158,11 +172,11 @@ class _SettingScreenState extends State<SettingScreen> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('Setting Title', style: TextStyle(
+                                Text('테마 설정', style: TextStyle(
                                   fontSize: 16,
                                   fontVariations: LayoutConstants.fontWeightSemiBold
                                 ),),
-                                Text('New Page')
+                                Text('앱의 테마를 설정합니다')
                               ],
                             ),
                             SizedBox(
@@ -183,10 +197,11 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 16,),
+            SizedBox(height: 24,),
             Container(
               padding: EdgeInsets.symmetric(horizontal: LayoutConstants.containerPadding),
               child: Card(
+                margin: EdgeInsets.zero,
                 color: Colors.black.withOpacity(0.05),
                 elevation: 0,
                 shape: RoundedRectangleBorder(
@@ -201,7 +216,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('Section 2', style: TextStyle(
+                          Text('지원', style: TextStyle(
                             fontVariations: LayoutConstants.fontWeightBold,
                             color: Colors.black.withOpacity(0.4)
                           )),
@@ -210,125 +225,48 @@ class _SettingScreenState extends State<SettingScreen> {
                         ],
                       ),
                       SizedBox(height: 8,),
-                      GestureDetector(
-                        behavior: HitTestBehavior.translucent,
-                        onTap: () {
-                          setState(() {
-                            setting1 = !setting1;
-                          });
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Setting Title', style: TextStyle(
-                                  fontSize: 16,
-                                  fontVariations: LayoutConstants.fontWeightSemiBold
-                                ),),
-                                Text('Outlined Button')
-                              ],
-                            ),
-                            OutlinedButton(
-                              onPressed: () {
-                                
-                              },
-                              child: Text('Button'),
-                            )
-                          ],
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('기술지원 문의', style: TextStyle(
+                                fontSize: 16,
+                                fontVariations: LayoutConstants.fontWeightSemiBold
+                              ),),
+                              Text('기술적인 문제가 있으신가요?')
+                            ],
+                          ),
+                          OutlinedButton(
+                            onPressed: () {
+                              
+                            },
+                            child: Text('문의'),
+                          )
+                        ],
                       ),
                       Divider(thickness: 0),
-                      GestureDetector(
-                        behavior: HitTestBehavior.translucent,
-                        onTap: () {
-                          setState(() {
-                            setting2 = !setting2;
-                          });
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Setting Title', style: TextStyle(
-                                  fontSize: 16,
-                                  fontVariations: LayoutConstants.fontWeightSemiBold
-                                ),),
-                                Text('Dropdown Button')
-                              ],
-                            ),
-                            DropdownButton(
-                              value: setting3,
-                              items: [
-                                DropdownMenuItem(
-                                  value: 1,
-                                  child: Text('Item 1'),
-                                ),
-                                DropdownMenuItem(
-                                  value: 2,
-                                  child: Text('Item 2'),
-                                ),
-                                DropdownMenuItem(
-                                  value: 3,
-                                  child: Text('Item 3'),
-                                ),
-                                DropdownMenuItem(
-                                  value: 4,
-                                  child: Text('Item 4'),
-                                )
-                              ],
-                              onChanged: (value) {
-                                setState(() {
-                                  setting3 = value!;
-                                });
-                              },
-                            )
-                          ],
-                        ),
-                      ),
-                      Divider(thickness: 0),
-                      GestureDetector(
-                        behavior: HitTestBehavior.translucent,
-                        onTap: () {
-                          
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Setting Title', style: TextStyle(
-                                  fontSize: 16,
-                                  fontVariations: LayoutConstants.fontWeightSemiBold
-                                ),),
-                                Text('Segmented Button')
-                              ],
-                            ),
-                            SegmentedButton(
-                              segments: [
-                                ButtonSegment<Setting4>(
-                                  value: Setting4.item1,
-                                  label: Text('1')
-                                ),
-                                ButtonSegment<Setting4>(
-                                  value: Setting4.item2,
-                                  label: Text('2')
-                                ),
-                              ],
-                              selected: <Setting4>{setting4},
-                              onSelectionChanged: (p0) {
-                                setState(() {
-                                  setting4 = p0.first;
-                                });
-                              },
-                            )
-                            
-                          ],
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('고객센터 연결', style: TextStyle(
+                                fontSize: 16,
+                                fontVariations: LayoutConstants.fontWeightSemiBold
+                              ),),
+                              Text('연락주셔도 괜찮아요')
+                            ],
+                          ),
+                          OutlinedButton(
+                            onPressed: () {
+                              
+                            },
+                            child: Text('연결'),
+                          )
+                        ],
                       ),
                     ],
                   )

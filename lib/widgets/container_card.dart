@@ -8,7 +8,9 @@ class ContainerCard extends StatefulWidget {
     this.subTitle,
     this.onClick,
     required this.child,
-    this.height
+    this.height,
+    this.icon,
+    this.noPadding = false
   });
 
   final String? title;
@@ -16,6 +18,8 @@ class ContainerCard extends StatefulWidget {
   final VoidCallback? onClick;
   final Widget child;
   final double? height;
+  final IconData? icon;
+  final bool noPadding;
 
   @override
   State<ContainerCard> createState() => _ContainerCardState();
@@ -59,11 +63,14 @@ class _ContainerCardState extends State<ContainerCard> {
                   )
                 ],
               ),
-              if (widget.title != null && widget.onClick != null) Icon(Icons.arrow_forward_ios, color: Colors.black.withOpacity(LayoutConstants.containerTitleOpacity),)
+              if (widget.title != null && widget.onClick != null) GestureDetector(
+                onTap: widget.onClick,
+                child: Icon(widget.icon ?? Icons.arrow_forward_ios, color: Colors.black.withOpacity(LayoutConstants.containerTitleOpacity),)
+              )
             ],
           ),
           Container(
-            padding: (widget.title != null) ? EdgeInsets.only(top: 16) : EdgeInsets.zero,
+            padding: (widget.title != null) ? EdgeInsets.only(top: widget.noPadding ? 0 : 16) : EdgeInsets.zero,
             child: widget.child,
           )
           // Text('asdf')

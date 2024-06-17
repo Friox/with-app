@@ -179,12 +179,12 @@ class _QuestionScreenState extends State<QuestionScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      '첫 번째 질문',
+                                      '1 번째 질문',
                                       style: TextStyle(
                                           color: Colors.black, fontSize: 15),
                                     ),
                                     Text(
-                                      '질문한 패밀리 이름',
+                                      '이주환',
                                       style: TextStyle(
                                         color: Color(0xFF666666),
                                         fontSize: 11,
@@ -222,12 +222,12 @@ class _QuestionScreenState extends State<QuestionScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      '두 번째 질문',
+                                      '2 번째 질문',
                                       style: TextStyle(
                                           color: Colors.black, fontSize: 15),
                                     ),
                                     Text(
-                                      '질문한 패밀리 이름',
+                                      '한여준',
                                       style: TextStyle(
                                         color: Color(0xFF666666),
                                         fontSize: 11,
@@ -265,12 +265,12 @@ class _QuestionScreenState extends State<QuestionScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      '세 번째 질문',
+                                      '3 번째 질문',
                                       style: TextStyle(
                                           color: Colors.black, fontSize: 15),
                                     ),
                                     Text(
-                                      '질문한 패밀리 이름',
+                                      '최영준',
                                       style: TextStyle(
                                         color: Color(0xFF666666),
                                         fontSize: 11,
