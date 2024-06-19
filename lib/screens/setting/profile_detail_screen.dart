@@ -284,7 +284,6 @@ class _ProfileDetailScreenState extends ConsumerState<ProfileDetailScreen> {
                                                           foregroundColor: Colors.red
                                                         ),
                                                         onPressed: () async {
-                                                          bool temp = await ref.read(authNotifierProvider.notifier).logout();
                                                           if (true) {
                                                             if (!context.mounted) return;
                                                             Navigator.pop(context, true);

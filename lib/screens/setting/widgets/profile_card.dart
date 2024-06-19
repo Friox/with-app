@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:app/constants/layout_constants.dart';
 import 'package:app/providers/notifiers/auth_notifier.dart';
 import 'package:flutter/material.dart';

@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:app/providers/notifiers/auth_notifier.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -110,7 +109,6 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final authState = ref.watch(authNotifierProvider);
     return Scaffold(
       key: scaffoldState,
       backgroundColor: Colors.white,
@@ -142,8 +140,8 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
       body: PageView(
         controller: pageController,
         onPageChanged: onPageChanged,
-        children: _children,
         physics: NeverScrollableScrollPhysics(),
+        children: _children,
       ),
     );
   }
